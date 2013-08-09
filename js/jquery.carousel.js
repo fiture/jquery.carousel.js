@@ -21,7 +21,7 @@
 
   Carousel.prototype.init = function() {
     var itemSize = $(this.items[0]).outerWidth(true);
-    var margin = itemSize - $(this.items[0]).width();
+    var margin = itemSize - $(this.items[0]).outerWidth();
     var fullSize = itemSize * this.items.length;
     this.visibleSize = itemSize * this.opts.visibleItemCount;
     this.pages = Math.ceil(this.items.length / this.opts.visibleItemCount);
