@@ -1,6 +1,7 @@
 ;(function ($) {
   var defaults = {
-    visibleItemCount: 2
+    visibleItemCount: 3,
+    duration: 600
   };
 
   function Carousel($el, options) {
@@ -26,17 +27,20 @@
     this.$inner.width(fullSize);
 
     this.setEvents();
-    console.log('Total Page: ', this.pages, 'Margin: ', margin);
+    //console.log('Total Page: ', this.pages, 'Margin: ', margin);
   };
 
   Carousel.prototype.setEvents = function() {
     var me = this;
-    this.$nextBtn.click(function (e) {
-      me.move('next');
-    });
-    this.$prevBtn.click(function (e) {
-      me.move();
-    });
+
+    if (this.$nextBtn.length && this.$prevBtn.length) {
+      this.$nextBtn.click(function (e) {
+        me.move('next');
+      });
+      this.$prevBtn.click(function (e) {
+        me.move();
+      });
+    }
   }
 
   Carousel.prototype.move = function(next) {
@@ -52,7 +56,9 @@
       this.currentPage = next ? 1 : this.pages;
       cssObject['marginLeft'] = next ? 0 : -(this.pages -1) * this.visibleSize;
     };
-    this.$inner.animate(cssObject, {});
+    this.$inner.animate(cssObject, {
+      duration: this.opts.duration || 0
+    });
   }
 
   $.fn.carousel = function(options){
@@ -64,4 +70,4 @@
 })(jQuery)
 
 
-$('.carousel').carousel();
+$('.carousel').carousel({visibleItemCount: 2});
