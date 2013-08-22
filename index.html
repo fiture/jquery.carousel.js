@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <title>Carousel</title>
+    <script src="http://cdn.staticfile.org/jquery/1.7.2/jquery.min.js"></script>
+    <script src="./js/jquery.carousel.js"></script>
     <style type="text/css">
       .carousel {
         margin: 10% auto 0;
@@ -59,7 +61,7 @@
     </style>
   </head>
   <body>
-    <div class="carousel">
+    <div class="carousel" id="carousel-auto-start">
       <div class="carousel-inner">
         <span class="item">1/item</span>
         <span class="item">2/item</span>
@@ -74,7 +76,7 @@
         <a href="javascript:void(0);" class="next">Next</a>
       </div>
     </div>
-    <div class="carousel">
+    <div class="carousel" id="carousel">
       <div class="carousel-inner">
         <span class="item">1/item</span>
         <span class="item">2/item</span>
@@ -85,7 +87,16 @@
         <a href="javascript:void(0);" class="next">Next</a>
       </div>
     </div>
-    <script src="http://cdn.staticfile.org/jquery/1.7.2/jquery.min.js"></script>
-    <script src="./js/jquery.carousel.js"></script>
+    <script type="text/javascript">
+      $('#carousel').carousel({
+        visibleItemCount: 2
+      });
+
+      $('#carousel-auto-start').carousel({
+        visibleItemCount: 3,
+        duration: 600,
+        autoStart: true
+      });
+    </script>
   </body>
 </html>

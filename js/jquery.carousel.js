@@ -1,7 +1,9 @@
 ;(function ($) {
   var defaults = {
     visibleItemCount: 3,
-    duration: 600
+    duration: 600,
+    autoStart: false,
+    intervaltime: 5000
   };
 
   function Carousel($el, options) {
@@ -11,6 +13,7 @@
     this.$inner = $el.find('.carousel-inner')
     this.items = this.$inner.children();
     this.currentPage = 1;
+    this.isPause = false;
     this.opts = options;
 
     return this.init();
@@ -27,8 +30,21 @@
     this.$inner.width(fullSize);
 
     this.setEvents();
+
+    if (this.opts.autoStart && this.opts.intervaltime) {
+      this.setTimer();
+    };
     //console.log('Total Page: ', this.pages, 'Margin: ', margin);
   };
+
+
+  Carousel.prototype.setTimer = function() {
+    if (this.isPause) { return; };
+    var me = this;
+    this.timer = setTimeout(function(){
+      me.move('next');
+    }, this.opts.intervaltime);
+  }
 
   Carousel.prototype.setEvents = function() {
     var me = this;
@@ -41,10 +57,31 @@
         me.move();
       });
     }
+
+    if (this.opts.autoStart && this.opts.intervaltime) {
+      this.$el.hover(function(){
+        me.stop();
+      }, function(){
+        me.start();
+      }); 
+    };
+  }
+
+  Carousel.prototype.stop = function() {
+    //console.log('Now stop');
+    this.isPause = true;
+    clearTimeout(this.timer);
+  }
+
+  Carousel.prototype.start = function() {
+    //console.log('Now start');
+    this.isPause = false;
+    this.setTimer(); 
   }
 
   Carousel.prototype.move = function(next) {
     var cssObject = {};
+    var me = this;
 
     if ( next && this.currentPage < this.pages) {
       cssObject['marginLeft'] = -this.currentPage * this.visibleSize
@@ -57,7 +94,13 @@
       cssObject['marginLeft'] = next ? 0 : -(this.pages -1) * this.visibleSize;
     };
     this.$inner.animate(cssObject, {
-      duration: this.opts.duration || 0
+      duration: this.opts.duration || 0,
+      complete: function() {
+        if (me.opts.autoStart && me.opts.intervaltime) {
+          if ( me.timer ) { clearTimeout(me.timer) }
+          me.setTimer();
+        };
+      }
     });
   }
 
@@ -68,6 +111,3 @@
     return this;
   };
 })(jQuery)
-
-
-$('.carousel').carousel({visibleItemCount: 2});
