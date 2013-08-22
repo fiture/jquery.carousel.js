@@ -1,0 +1,91 @@
+<!doctype>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Carousel</title>
+    <style type="text/css">
+      .carousel {
+        margin: 10% auto 0;
+        position: relative;
+        width: 810px;        
+        overflow: hidden;
+      }
+      .carousel-inner {
+        width: 9999px;
+        height: 260px;
+      }
+      .item {
+        display: block;
+        float: left;
+        width: 260px;
+        height: 260px;
+        margin-right: 15px;
+        text-align: center;
+        line-height: 260px;
+        background-color: #FFB3FE;
+      }
+
+      .carousel-controls .prev,
+      .carousel-controls .next {
+        position: absolute;
+        display: block;
+        width: 40px;
+        height: 55px;
+        top: 50%;
+        margin-top: -24px;
+        text-indent: -999em;
+        opacity: .6;
+        background: url('./images/arrow.png') no-repeat; 
+      }
+
+      .carousel-controls .prev {
+        left: 0;
+        background-position: -4px 2px;
+      }
+      .carousel-controls .next {
+        right: 0;
+        background-position: -52px 2px;
+      }
+      .carousel-controls .prev:hover {
+        left: 0;
+        opacity: 1;
+        background-position: -5px -55px;
+      }
+      .carousel-controls .next:hover {
+        right: 0;
+        opacity: 1;
+        background-position: -51px -55px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="carousel">
+      <div class="carousel-inner">
+        <span class="item">1/item</span>
+        <span class="item">2/item</span>
+        <span class="item">3/item</span>
+        <span class="item">4/item</span>
+        <span class="item">5/item</span>
+        <span class="item">6/item</span>
+        <span class="item">7/item</span>
+      </div>
+      <div class="carousel-controls">
+        <a href="javascript:void(0);" class="prev">Prev</a>
+        <a href="javascript:void(0);" class="next">Next</a>
+      </div>
+    </div>
+    <div class="carousel">
+      <div class="carousel-inner">
+        <span class="item">1/item</span>
+        <span class="item">2/item</span>
+        <span class="item">3/item</span>
+      </div>
+      <div class="carousel-controls">
+        <a href="javascript:void(0);" class="prev">Prev</a>
+        <a href="javascript:void(0);" class="next">Next</a>
+      </div>
+    </div>
+    <script src="http://cdn.staticfile.org/jquery/1.7.2/jquery.min.js"></script>
+    <script src="./js/jquery.carousel.js"></script>
+  </body>
+</html>
